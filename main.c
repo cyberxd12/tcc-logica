@@ -26,7 +26,7 @@ void inserir_equipamento(fila *f, char *nome, int dano, float preco){
     novo->preco = preco;
     novo->prox = NULL;
     
-    //debug
+    //debug e catalogo
     printf("\ncadastrando produto");
     printf("\nnome: %s", novo->nome);
     printf("\ndano: %i", novo->dano);
