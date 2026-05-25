@@ -58,7 +58,7 @@ void exibir_fila(fila fl){
 void arsenal(){
     //modulo 1: O Arsenal da Guilda (Vetores e Structs)
     //vetor com 10 amazenamentos para equipamentos
-    fila[10] catalogo;
+    fila catalogo;
     catalogo.inicio = NULL;
     catalogo.fim = NULL;
 
