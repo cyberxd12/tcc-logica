@@ -38,9 +38,9 @@ void inserir_equipamento(fila *f, char *nome, int dano, float preco){
     }
 }
 
-void exibir_fila(fila fl){
+void filaPadrao(fila *fl){
     //retirada das structs da fila para exibir
-    equipamento *atual = fl.inicio;
+    equipamento *atual = fl->inicio;
     equipamento *prox;
     int caunt= 1;
     
@@ -55,17 +55,45 @@ void exibir_fila(fila fl){
     }
 }
 
+void filaOrdenada(fila *fl){
+    //retirada das structs da fila para exibir
+    equipamento *atual = fl->inicio;
+    equipamento *prox;
+    int caunt= 1;
+    
+    printf("\nexibindo catalogo...\n");
+    //exibição
+    while(atual !=NULL){
+
+        //tomando todo tipo de gap desse catalogo ordenado, como caralhos faz essa miseria
+        while(atual->prox !=NULL){
+            if(atual->preço > atual->prox->preco){
+                //prox se torna o atual
+                atual = atual->prox;
+            }else{
+                atual->prox = atual
+            }
+        }
+
+        printf("\nEquipamento %d\nnome: %s\ndano: %d\npreço: %.2f\n", caunt++, atual->nome, atual->dano, atual->preco);
+        //variavel prox recebe o proximo do atual
+        prox = atual->prox;
+        //prox se torna o atual
+        atual = prox;
+    }
+}
+
 void arsenal(){
     //modulo 1: O Arsenal da Guilda (Vetores e Structs)
     //vetor com 10 amazenamentos para equipamentos
-    fila catalogo;
-    catalogo.inicio = NULL;
-    catalogo.fim = NULL;
+    struct fila catalogo[10];
+    catalogo->inicio = NULL;
+    catalogo->fim = NULL;
 
     //inserindo equipamentos pradrões
-    inserir_equipamento(&catalogo, "espada", 10, 11.5);
-    inserir_equipamento(&catalogo, "escudo", 2, 9.0);
-    inserir_equipamento(&catalogo, "capacete", 0, 3.0);
+    inserir_equipamento(catalogo, "espada", 10, 11.5);
+    inserir_equipamento(catalogo, "escudo", 2, 9.0);
+    inserir_equipamento(catalogo, "capacete", 0, 3.0);
 
     //seleção do menu
     int opc;
@@ -75,11 +103,11 @@ void arsenal(){
         scanf(" %d", &opc);
         switch(opc){
             case 1:
-                exibir_fila(catalogo); 
+                filaPadrao(catalogo); 
             break;
-
+                
             case 2:
-
+                filaOrdenada(catalogo);
             break;
 
             case 0:
@@ -92,4 +120,4 @@ void arsenal(){
         }
     }while(opc != 0);
     //fim do modulo 1
-    }
+}
