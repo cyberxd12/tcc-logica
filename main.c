@@ -33,8 +33,7 @@ void menu_principal(){
     }while(opc !=0);
 }
 
-int main(void)
-{
+int main(void){
     menu_principal();
 
     return 0;
