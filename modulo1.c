@@ -56,30 +56,76 @@ void filaPadrao(fila *fl){
 }
 
 void filaOrdenada(fila *fl){
-    //retirada das structs da fila para exibir
-    equipamento *atual = fl->inicio;
-    equipamento *prox;
-    int caunt= 1;
-    
-    printf("\nexibindo catalogo...\n");
-    //exibição
-    while(atual !=NULL){
+    if (fl == NULL || fl->inicio == NULL) {
+        printf("\nCatalogo vazio!\n");
+        return;
+    }
 
-        //tomando todo tipo de gap desse catalogo ordenado, como caralhos faz essa miseria
-        while(atual->prox !=NULL){
-            if(atual->preço > atual->prox->preco){
-                //prox se torna o atual
-                atual = atual->prox;
-            }else{
-                atual->prox = atual
+    equipamento *atual;
+    equipamento *menor;
+    equipamento *anterior;
+    equipamento *anterior_do_menor;
+    int caunt = 1;
+
+    //clonagem da fila
+    fila filaClone;
+    filaClone.inicio = NULL;
+    filaClone.fim = NULL;
+
+    //clonar nó por nó
+    equipamento *auxOriginal = fl->inicio;
+    equipamento *ultimoClonado = NULL;
+    
+    //novo nó
+    while (auxOriginal != NULL) {
+        // Aloca memória para um novo nó na fila clone
+        equipamento *novoNo = (equipamento*) malloc(sizeof(equipamento));
+        
+        // Copia todos os dados do nó original para o novo nó
+        strcpy(novoNo->nome, auxOriginal->nome);
+        novoNo->dano = auxOriginal->dano;
+        novoNo->preco = auxOriginal->preco;
+        novoNo->prox = NULL; // Por enquanto ele é o último da nova fila
+
+        // Conecta o novo nó na fila clone
+        if (filaClone.inicio == NULL) {
+            filaClone.inicio = novoNo; // Primeiro nó da cópia
+        } else {
+            ultimoClonado->prox = novoNo; // Conecta ao anterior da cópia
+        }
+        
+        ultimoClonado = novoNo;
+        auxOriginal = auxOriginal->prox; // Avança na lista original
+    }
+
+    printf("\nexibindo catalogo ordenado...\n");
+    
+    //exibição usando a fila clone
+    while(filaClone.inicio != NULL){
+        atual = filaClone.inicio;
+        menor = filaClone.inicio;
+        anterior = NULL;
+        anterior_do_menor = NULL;
+        
+        while (atual != NULL) {
+            if (atual->preco < menor->preco) {
+                menor = atual;
+                anterior_do_menor = anterior; 
             }
+            anterior = atual;
+            atual = atual->prox;
+        }
+        
+        printf("\nEquipamento %d\nnome: %s\ndano: %d\npreço: %.2f\n", caunt++, menor->nome, menor->dano, menor->preco);
+        
+        // Cirurgia de remoção na Fila Clone
+        if (menor == filaClone.inicio) {
+            filaClone.inicio = filaClone.inicio->prox;
+        } else {
+            anterior_do_menor->prox = menor->prox;
         }
 
-        printf("\nEquipamento %d\nnome: %s\ndano: %d\npreço: %.2f\n", caunt++, atual->nome, atual->dano, atual->preco);
-        //variavel prox recebe o proximo do atual
-        prox = atual->prox;
-        //prox se torna o atual
-        atual = prox;
+        free(menor); // Libera o nó da cópia
     }
 }
 
