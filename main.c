@@ -1,5 +1,7 @@
 #include <stdio.h>
-#include "modulo1"
+#include "modulo1_h"
+#include "modulo2_h"
+#include "modulo3_h"
 
 int opc;
 
@@ -16,10 +18,12 @@ void menu_principal(){
 
             case 2:
                 printf("\nmostrando fila da enfermaria...\n");
+                filaEnfemaria();
             break;
 
             case 3:
                 printf("\nobservando mural de missões...\n");
+                muralMissoes();
             break;
 
             case 0:
