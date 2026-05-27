@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "modulo1_h"
-#include "modulo2_h"
-#include "modulo3_h"
+#include "../include/modulo1.h"
+#include "../include/modulo2.h"
+#include "../include/modulo3.h"
 
 int opc;
 

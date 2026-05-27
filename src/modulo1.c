@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "modulo1_h"
+#include "../include/modulo1.h"
 
 //estrutura do equipamento
 typedef struct equipamento {
